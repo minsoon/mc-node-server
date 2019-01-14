@@ -13,7 +13,7 @@
   import axios from 'axios'
   export default {
     asyncData({ params }) {
-      return axios.get('http://localhost:3000/api/random-movie').then(res => {
+      return axios.get('http://www.mcsung-free.tk/api/random-movie').then(res => {
           return { movie: res.data }
         })
     },
