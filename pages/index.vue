@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    {{ title }}
+    {{ title }} 왜이래!
   </section>
 </template>
 
