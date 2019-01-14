@@ -1,48 +1,50 @@
 <template>
   <section class="container">
-    <img src="~assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
-      USERS
-    </h1>
-    <ul class="users">
-      <li v-for="(user, index) in users" :key="index" class="user">
-        <nuxt-link :to="{ name: 'id', params: { id: index }}">
-          {{ user.name }}
-        </nuxt-link>
-      </li>
-    </ul>
+    <div class="movie" v-if="movie">
+      <img :src="movie.Poster">
+      <h1>{{movie.Title}}</h1>
+      <h3>{{movie.Year}}</h3>
+      <button @click="getRandomMovie">Get Random Movie</button>
+    </div>
   </section>
 </template>
 
 <script>
-import axios from '~/plugins/axios'
-
-export default {
-  async asyncData () {
-    let { data } = await axios.get('/api/users')
-    return { users: data }
-  },
-  head () {
-    return {
-      title: 'Users'
+  import axios from 'axios'
+  export default {
+    asyncData({ params }) {
+      return axios.get('http://localhost:3000/api/random-movie').then(res => {
+          return { movie: res.data }
+        })
+    },
+    methods: {
+      getRandomMovie() {
+        axios.get('api/random-movie').then(res => {
+          this.movie = res.data
+      })
+      }
     }
   }
-}
 </script>
 
-<style scoped>
-.title
-{
-  margin: 30px 0;
-}
-.users
-{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.user
-{
-  margin: 10px 0;
-}
+<style>
+  .container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: sans-serif;
+  }
+  .movie img {
+    width: 300px;
+    height: 445px;
+  }
+  .movie h1 {
+    margin-top: 5px;
+  }
+  .movie button {
+    margin-top: 15px;
+    cursor: pointer;
+  }
 </style>
