@@ -1,26 +1,15 @@
 <template>
   <section class="container">
-    <div class="movie" v-if="movie">
-      <img :src="movie.Poster">
-      <h1>{{movie.Title}}</h1>
-      <button @click="getRandomMovie">Get Random Movie</button>
-    </div>
+    {{ title }}
   </section>
 </template>
 
 <script>
   import axios from 'axios'
   export default {
-    asyncData({ params }) {
-      return axios.get('http://localhost:3000/api/random-movie').then(res => {
-          return { movie: res.data }
-        })
-    },
-    methods: {
-      getRandomMovie() {
-        axios.get('api/random-movie').then(res => {
-          this.movie = res.data
-      })
+    data () {
+      return {
+        title: 'mc-nuxt-server'
       }
     }
   }
